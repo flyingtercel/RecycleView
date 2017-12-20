@@ -1,13 +1,14 @@
 # RecycleView
 该控件用于在有限的窗口中展示大量数据集，其实这样功能的控件我们并不陌生，例如：ListView、GridView。
-那么有了ListView、GridView为什么还需要RecyclerView这样的控件呢？整体上看RecyclerView架构，提供了一种插拔式的体验，高度的解耦，异常的灵活，通过设置它提供的不同LayoutManager，ItemDecoration , ItemAnimator实现令人瞠目的效果。
+那么有了ListView、GridView为什么还需要RecyclerView这样的控件呢？整体上看RecyclerView架构，提供了一种插拔式的体验，高度的解耦，异常的灵活，通过设置它提供的不同LayoutManager，ItemDecoration , ItemAnimator实现令人瞠目的效果。</br>
 
-你想要控制其显示的方式，请通过布局管理器LayoutManager
-你想要控制Item间的间隔（可绘制），请通过ItemDecoration
-你想要控制Item增删的动画，请通过ItemAnimator
-你想要控制点击、长按事件，请自己写（擦，这点尼玛。）
+你想要控制其显示的方式，请通过布局管理器LayoutManager </br>
+你想要控制Item间的间隔（可绘制），请通过ItemDecoration </br>
+你想要控制Item增删的动画，请通过ItemAnimator  </br>
+你想要控制点击、长按事件，请自己写（擦，这点尼玛。）</br>
 
 基本使用
+```
 mRecyclerView = findView(R.id.id_recyclerview);
 //设置布局管理器
 mRecyclerView.setLayoutManager(layout);
@@ -59,7 +60,10 @@ protected void onCreate(Bundle savedInstanceState) {
         recyclerView.addItemDecoration(new DividerGridItemDecoration(this));
 
     }
+    ``
+    
     Adapter中简单写法
+    ```
     public class RecyclerAdapter extends RecyclerView.Adapter {
     private ArrayList<String>list;
     private Context context;
@@ -125,7 +129,10 @@ protected void onCreate(Bundle savedInstanceState) {
         }
     }
 }
+```
+
 Activity的xml文件
+```
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -139,8 +146,10 @@ Activity的xml文件
         android:layout_height="match_parent" />
 
 </RelativeLayout>
+```
 
 Adapter的item视图
+```
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -154,10 +163,10 @@ Adapter的item视图
         android:gravity="center"
         android:text="1" />
 </FrameLayout>
-
+```
 RecyclerView并没有支持divider这样的属性。那么怎么办，你可以给Item的布局去设置margin，当然了这种方式不够优雅，我们文章开始说了，
 我们可以自由的去定制它，当然我们的分割线也是可以定制的。
-
+```
 public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
     private static final int[] ATTRS = new int[]{
@@ -241,6 +250,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         }
     }
 }
+```
 自定义分割线使用如下
 mRecyclerView.addItemDecoration(new DividerItemDecoration(this,
 DividerItemDecoration.VERTICAL_LIST));
