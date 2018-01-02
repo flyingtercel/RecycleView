@@ -14,14 +14,24 @@ import java.util.ArrayList;
  */
 
 public class RecyclerAdapter extends RecyclerView.Adapter {
-    private ArrayList<String>list;
+    private ArrayList<String>list = new ArrayList<>();
+    private ArrayList<Integer>heights = new ArrayList<>();
     private Context context;
-    private OnRecyclerItemListener listener;
-    public RecyclerAdapter(Context context,ArrayList<String> list) {
-        this.list = list;
+    private ItemListener listener;
+    public RecyclerAdapter(Context context) {
         this.context = context;
     }
-    public void setOnItemClickListener(OnRecyclerItemListener listener){
+    public void initData(ArrayList<String> data){
+        list.addAll(data);
+        notifyDataSetChanged();
+    }
+    public void initHeight(){
+        for(int i=0;i<list.size();i++){
+            heights.add((int)(100+Math.random()*400));
+        }
+    }
+
+    public void setOnItemClickListener(ItemListener listener){
         this.listener = listener;
     }
 
@@ -36,17 +46,22 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         String data = list.get(position);
         final ViewHolder vh = (ViewHolder) holder;
+        ViewGroup.LayoutParams layoutParams = vh.title.getLayoutParams();
+        layoutParams.height = heights.get(position);
+        vh.title.setLayoutParams(layoutParams);
         vh.title.setText(data);
         vh.title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemClick(vh.title,position,position);
+               listener.onItemClick(vh.title,position,position);
             }
         });
     }
 
+
     @Override
     public int getItemCount() {
+        initHeight();
         return list.size();
     }
 
@@ -54,23 +69,40 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
 
         private TextView title;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(final View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.titel);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick(itemView,getAdapterPosition(),getAdapterPosition());
+                }
+            });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    listener.onItemLongClick(itemView,getAdapterPosition(),getAdapterPosition());
+                    return true;
+                }
+            });
         }
     }
-    public interface OnRecyclerItemListener{
-        public void onItemClick(View view,int postion,int id);
+    //设置接口，用来监听点击事件
+    public interface ItemListener{
+        void onItemClick(View view,int postion,long id);
+        void onItemLongClick(View view,int postion,long id);
     }
+    //点击添加
     public void addItem(String data){
         if (list!=null){
-            list.add(data);
+            list.add(0,data);
             notifyDataSetChanged();
         }
     }
-    public void deleteItem(String data){
-        if (list!=null){
-            list.remove(data);
+    //点击删除
+    public void deleteItem(int postion){
+        if (postion<list.size()){
+            list.remove(postion);
             notifyDataSetChanged();
         }
     }

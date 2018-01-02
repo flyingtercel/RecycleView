@@ -10,20 +10,61 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <Button
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/addItem"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textSize="23sp"
+            android:gravity="center"
+            android:background="#0e0ee0"
             android:layout_height="wrap_content"
-            android:onClick="addData"
-            android:text="加载"/>
-        <Button
-            android:layout_width="wrap_content"
+            android:text="添加item"/>
+        <TextView
+            android:id="@+id/deleteItem"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:onClick="deleteData"
-            android:text="删除"/>
+            android:textSize="23sp"
+            android:gravity="center"
+            android:background="#e00e0e"
+            android:text="删除Item"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/changeListView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:background="#e0e00e"
+            android:text="切换ListView"/>
+        <TextView
+            android:id="@+id/changeGridView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:background="#e00ee0"
+            android:text="切换GridView"/>
+
+        <TextView
+            android:id="@+id/changeStaggered"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#e0e0e0"
+            android:gravity="center"
+            android:text="切换瀑布流"
+            android:textSize="20sp" />
     </LinearLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

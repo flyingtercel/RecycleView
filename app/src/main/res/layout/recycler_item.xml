@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center">
-    <TextView
-        android:id="@+id/titel"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:maxLines="1"
-        android:gravity="center"
-        android:textSize="20sp"/>
-</RelativeLayout>
+    <android.support.v7.widget.CardView
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#ff6699"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="15dp"
+        app:cardPreventCornerOverlap="true">
+        <TextView
+            android:id="@+id/titel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="20sp"/>
+
+    </android.support.v7.widget.CardView>
+
+</FrameLayout>
