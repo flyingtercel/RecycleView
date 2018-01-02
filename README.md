@@ -13,7 +13,7 @@
 你想要控制Item增删的动画，请通过ItemAnimator  </br>
 你想要控制点击、长按事件，请自己写（擦，这点尼玛。）</br>
 
-基本使用
+#### 基本使用
 ```
 mRecyclerView = findView(R.id.id_recyclerview);
 //设置布局管理器
@@ -25,9 +25,9 @@ mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 //添加分割线
 mRecyclerView.addItemDecoration(new DividerItemDecoration(
                 getActivity(), DividerItemDecoration.HORIZONTAL_LIST));
-
-
-Activity简单写法
+```
+##### Activity简单写法
+```
 protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -95,11 +95,9 @@ protected void onCreate(Bundle savedInstanceState) {
                 break;
         }
     }
-    
-    ``
-    
-    Adapter中简单写法
-    ```
+```
+#####   Adapter中简单写法
+```
     public class RecyclerAdapter extends RecyclerView.Adapter {
     private ArrayList<String>list;
     private Context context;
@@ -167,7 +165,7 @@ protected void onCreate(Bundle savedInstanceState) {
 }
 ```
 
-Activity的xml文件
+##### Activity的xml文件
 ```
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -184,7 +182,7 @@ Activity的xml文件
 </RelativeLayout>
 ```
 
-Adapter的item视图
+##### Adapter的item视图
 ```
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -192,12 +190,25 @@ Adapter的item视图
     android:background="#44ff0000"
     android:layout_height="wrap_content" >
 
-    <TextView
-        android:id="@+id/id_num"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:text="1" />
+    <android.support.v7.widget.CardView
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#ff6699"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="15dp"
+        app:cardPreventCornerOverlap="true">
+        <TextView
+            android:id="@+id/titel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="20sp"/>
+
+    </android.support.v7.widget.CardView>
 </FrameLayout>
 ```
 RecyclerView并没有支持divider这样的属性。那么怎么办，你可以给Item的布局去设置margin，当然了这种方式不够优雅，我们文章开始说了，
@@ -287,7 +298,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
     }
 }
 ```
-自定义分割线使用如下
+##### 自定义分割线使用如下
 mRecyclerView.addItemDecoration(new DividerItemDecoration(this,
 DividerItemDecoration.VERTICAL_LIST));
 
