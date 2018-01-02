@@ -1,4 +1,10 @@
 # RecycleView
+##### RecyclerView实现效果图如下：<br/>
+
+![GridView实现效果图](https://github.com/flyingtercel/RecycleView/blob/master/app/src/main/res/mipmap-hdpi/grid.png)
+
+
+
 该控件用于在有限的窗口中展示大量数据集，其实这样功能的控件我们并不陌生，例如：ListView、GridView。
 那么有了ListView、GridView为什么还需要RecyclerView这样的控件呢？整体上看RecyclerView架构，提供了一种插拔式的体验，高度的解耦，异常的灵活，通过设置它提供的不同LayoutManager，ItemDecoration , ItemAnimator实现令人瞠目的效果。</br>
 
@@ -37,29 +43,59 @@ protected void onCreate(Bundle savedInstanceState) {
         adapter.notifyDataSetChanged();
     }
 
-    private void initView() {
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+   private void initView() {
         //设置RecyclerView的排列方式
         //LinearLayoutManager manager = new LinearLayoutManager(this);
         //manager.setOrientation(LinearLayoutManager.VERTICAL);
 
-        GridLayoutManager manager = new GridLayoutManager(this,3);
-        manager.setOrientation(GridLayoutManager.VERTICAL);
+        //GridLayoutManager manager = new GridLayoutManager(this,3);
+        //manager.setOrientation(GridLayoutManager.VERTICAL);
 
         //StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setHasFixedSize(true);
-        adapter = new RecyclerAdapter(this,list);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+       // recyclerView.setLayoutManager(manager);
         //recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
         //自定义ListView分割线的样式
         //recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.HORIZONTAL_LIST));
         //recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL_LIST));
         //自定义GridView分割线的样式
-        recyclerView.addItemDecoration(new DividerGridItemDecoration(this));
+        //recyclerView.addItemDecoration(new DividerGridItemDecoration(this));
 
+        addItem = (TextView) findViewById(R.id.addItem);
+        deleteItem = (TextView) findViewById(R.id.deleteItem);
+        changeList = (TextView) findViewById(R.id.changeListView);
+        changeGrid = (TextView) findViewById(R.id.changeGridView);
+        changeStaggered = (TextView) findViewById(R.id.changeStaggered);
+        addItem.setOnClickListener(this);
+        deleteItem.setOnClickListener(this);
+        changeList.setOnClickListener(this);
+        changeGrid.setOnClickListener(this);
+        changeStaggered.setOnClickListener(this);
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.addItem:
+                adapter.addItem("ZZ");
+                break;
+            case R.id.deleteItem:
+                adapter.deleteItem(0);
+                break;
+            case R.id.changeListView:
+                //设置Listview显示方式
+                recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+                break;
+            case R.id.changeGridView:
+                //设置GridView显示方式
+                recyclerView.setLayoutManager(new GridLayoutManager(this,3,GridLayoutManager.VERTICAL,false));
+                break;
+            case R.id.changeStaggered:
+                //设置流式显示方式
+                recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+                break;
+        }
+    }
+    
     ``
     
     Adapter中简单写法
